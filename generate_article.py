@@ -1,8 +1,7 @@
 import os, datetime
 from openai import OpenAI
 
-client = OpenAI(base_url="https://models.inference.ai.azure.com", api_api_key=os.environ["GH_MODELS_TOKEN"])
-
+client = OpenAI(base_url="https://models.inference.ai.azure.com", api_key=os.environ["GH_MODELS_TOKEN"])
 def generate():
     messages=[{
         "role": "user", 
