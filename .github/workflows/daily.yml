@@ -1,0 +1,20 @@
+name: Deploy
+on:
+  workflow_dispatch: # 手動実行用ボタン
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate
+        env:
+          GH_MODELS_TOKEN: ${{ secrets.GH_MODELS_TOKEN }}
+        run: |
+          pip install openai
+          python generate_article.py
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=ai-money-blog
