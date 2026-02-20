@@ -1,50 +1,59 @@
 ---
 const posts = await Astro.glob('./blog/*.md');
 ---
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>TechPulse Global | Deciphering the Future</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechPulse Global</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+    </style>
   </head>
-  <body class="bg-slate-50 text-slate-900 font-['Inter',sans-serif]">
-    <header class="bg-white border-b border-slate-200 py-16 mb-12">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-        <h1 class="text-5xl font-black tracking-tighter text-slate-900 mb-4">TechPulse Global</h1>
-        <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-          In-depth analysis and daily updates on the evolving landscape of global technology and innovation.
-        </p>
+  <body class="bg-gray-50 text-gray-900">
+    <nav class="bg-white border-b py-6 sticky top-0 z-10 shadow-sm">
+      <div class="max-w-4xl mx-auto px-6 font-black text-2xl tracking-tighter">
+        TECHPULSE GLOBAL
+      </div>
+    </nav>
+
+    <header class="py-20 bg-white border-b border-gray-100">
+      <div class="max-w-4xl mx-auto px-6">
+        <h1 class="text-6xl font-black mb-4 tracking-tight">Deciphering the <span class="text-blue-600 text-shadow-sm">Future</span>.</h1>
+        <p class="text-xl text-gray-500 font-medium">Daily insights on the technology shaping our world.</p>
       </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-6 pb-24">
-      <div class="grid gap-10">
-        {posts.reverse().map(post => (
-          <article class="group bg-white p-10 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Analysis</span>
-              <time class="text-sm text-slate-400 font-medium">{post.frontmatter.date}</time>
-            </div>
-            <h2 class="text-3xl font-extrabold mb-4 group-hover:text-blue-600 transition-colors">
-              <a href={post.url}>{post.frontmatter.title}</a>
-            </h2>
-            <p class="text-slate-500 mb-8 leading-relaxed line-clamp-3 text-lg">
-              Explore our latest findings and strategic insights into this groundbreaking development. Click to read the full executive summary.
-            </p>
-            <a href={post.url} class="inline-flex items-center text-sm font-black text-blue-600 uppercase tracking-widest border-b-2 border-blue-600 pb-1 hover:text-blue-800 hover:border-blue-800 transition-all">
-              Full Article
-              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7-7 7"></path></svg>
-            </a>
-          </article>
-        ))}
+    <main class="max-w-4xl mx-auto px-6 py-16">
+      <div class="grid gap-12">
+        {posts.length === 0 ? (
+          <div class="text-center py-20 border-2 border-dashed rounded-3xl text-gray-400">
+            Waiting for AI to generate initial reports...
+          </div>
+        ) : (
+          posts.reverse().map(post => (
+            <article class="group">
+              <time class="text-blue-600 font-bold text-sm tracking-widest uppercase">{post.frontmatter.date}</time>
+              <h2 class="text-3xl font-bold mt-2 group-hover:text-blue-600 transition-colors">
+                <a href={post.url}>{post.frontmatter.title}</a>
+              </h2>
+              <p class="text-gray-500 mt-4 leading-relaxed line-clamp-2">Latest technical analysis and executive summary from the TechPulse Editorial Team.</p>
+              <div class="mt-6 flex items-center text-sm font-bold border-b-2 border-black w-max pb-1">
+                READ ANALYSIS →
+              </div>
+            </article>
+          ))
+        )}
       </div>
     </main>
-    
-    <footer class="text-center py-16 text-slate-400 text-sm border-t border-slate-100 bg-white">
-      <p class="font-bold mb-2">TechPulse Global</p>
-      <p>&copy; 2026 TechPulse Global Media Group. All rights reserved.</p>
+
+    <footer class="bg-white border-t py-20">
+      <div class="max-w-4xl mx-auto px-6 text-sm text-gray-400">
+        &copy; 2026 TechPulse Global Media Group. All rights reserved.
+      </div>
     </footer>
   </body>
 </html>
