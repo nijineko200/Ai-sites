@@ -28,4 +28,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # --project-name の後は、Cloudflareで作ったプロジェクト名に合わせてね
-          command: pages deploy dist --project-name=ai-money-blog
+          command: pages deploy dist --project-name=techpulse-global
