@@ -1,12 +1,50 @@
 ---
-// ここは設定エリア（今は空でOK）
+const posts = await Astro.glob('./blog/*.md');
 ---
-<html>
+<html lang="en">
   <head>
-    <title>AI Blog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>TechPulse Global | Deciphering the Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <h1>AIブログ、起動成功！</h1>
-    <p>これからここにAIが記事を自動追加していきます。</p>
+  <body class="bg-slate-50 text-slate-900 font-['Inter',sans-serif]">
+    <header class="bg-white border-b border-slate-200 py-16 mb-12">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h1 class="text-5xl font-black tracking-tighter text-slate-900 mb-4">TechPulse Global</h1>
+        <p class="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+          In-depth analysis and daily updates on the evolving landscape of global technology and innovation.
+        </p>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 pb-24">
+      <div class="grid gap-10">
+        {posts.reverse().map(post => (
+          <article class="group bg-white p-10 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Analysis</span>
+              <time class="text-sm text-slate-400 font-medium">{post.frontmatter.date}</time>
+            </div>
+            <h2 class="text-3xl font-extrabold mb-4 group-hover:text-blue-600 transition-colors">
+              <a href={post.url}>{post.frontmatter.title}</a>
+            </h2>
+            <p class="text-slate-500 mb-8 leading-relaxed line-clamp-3 text-lg">
+              Explore our latest findings and strategic insights into this groundbreaking development. Click to read the full executive summary.
+            </p>
+            <a href={post.url} class="inline-flex items-center text-sm font-black text-blue-600 uppercase tracking-widest border-b-2 border-blue-600 pb-1 hover:text-blue-800 hover:border-blue-800 transition-all">
+              Full Article
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7-7 7"></path></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+    </main>
+    
+    <footer class="text-center py-16 text-slate-400 text-sm border-t border-slate-100 bg-white">
+      <p class="font-bold mb-2">TechPulse Global</p>
+      <p>&copy; 2026 TechPulse Global Media Group. All rights reserved.</p>
+    </footer>
   </body>
 </html>
